@@ -20,14 +20,13 @@ int Calculate(T* arr, T vallue, int Size)//callculate similar elements
 }
 
 template <typename T>
-T* SearchBuble(T* arr, T vallue, const int Size)
+T* SearchBuble(T* arr, T vallue, int left, int right, int Size)
 {
-	Sort(arr, Size);
 
 	int countOfSimilaVallue = Calculate(arr, vallue, Size);
 	T* positionArr = new T[countOfSimilaVallue];
 	int j = 0;
-	int midle = Size / 2;
+	int midd = 0;
 	bool flag = true;
 	T* helpArr = new T[Size];
 	
@@ -35,25 +34,30 @@ T* SearchBuble(T* arr, T vallue, const int Size)
 	{
 		helpArr[i] = arr[i];
 	}
-
+	
 	
 	while(flag)
 	{
-		 if (helpArr[midle] > vallue)
+		midd = (left + right) / 2;
+		if (vallue < helpArr[midd])
 		{
-		    midle = midle / 2;
+			right = midd - 1;
 		}
-		else if (helpArr[midle] < vallue)
+		else if (vallue > helpArr[midd])
+		{ 
+			left = midd + 1; 
+		}
+		else if (vallue == helpArr[midd])
 		{
-			midle = (midle + Size) / 2;
-		} 
-		else if (helpArr[midle] == vallue)
-		{
-			positionArr[j] = midle;
-			helpArr[midle] = 0;
+			positionArr[j] = midd;
+			helpArr[midd] = 0;
 			j++;
 		}
-		 if (j == countOfSimilaVallue) { flag = false; }
+
+		 if (left > right)
+		 { 
+			 flag = false; 
+		 }
 	}
 	delete helpArr;
 	return positionArr;
