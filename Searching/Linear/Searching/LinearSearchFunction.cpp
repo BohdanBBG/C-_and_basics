@@ -26,7 +26,7 @@ T* Search(T* arr, T vallue, int Size)
 	T* positionArr = new T[countOfSimilaVallue];
 	
 	int j = 0;
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < Size; i++)
 	{
 		if (arr[i] == vallue)
 		{
