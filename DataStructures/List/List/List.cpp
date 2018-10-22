@@ -77,50 +77,53 @@ template<typename T>
  }
 
  template<typename T>
+ void List<T>::pop_front()
+ {
+	 List<T> *temp = head;
+	 head = head->pnext;
+	 delete temp;
+	 size--;
+
+ }
+
+ template<typename T>
  void List<T>::DeleteAll()
  {
-	
-	 while (this->size != 0)
+	 if (this->size == 0)
 	 {
-		 List<T>* temp = this->head;
-		 this->head = temp->pnext;
-		 delete temp;
-		 this->size--;
+		 pop_front()
+	 }
+	 else
+	 {
+		 while (this->size != 0)
+		 {
+			 List<T>* temp = this->head;
+			 this->head = temp->pnext;
+			 delete temp;
+			 this->size--;
+		 }
 	 }
  }
 
  template<typename T>
  void List<T>::DeleteInPosition(int position)
  {
-	 List<T>* temp = this->head;
-	 List<T>* current = nullptr;
-	 int k = 0;
-	 position--;
-
-	 if (size == 0 && position > 0) { throw - 1; }
+	 if (position == 0)
+	 {
+		 pop_front();
+	 }
 	 else
 	 {
-		 if (position > 0)
+		 List<T> *previous = this->head;
+		 for (int i = 0; i < position - 1; i++)
 		 {
-			 while (k < position - 1)
-			 {
-				 temp = temp->pnext;
-				 k++;
-			 }
-			 current = temp;
-			 temp = current->pnext;
-			 current->pnext = current->pnext->pnext;
-			 delete temp;
-			
-			 this->size--;
+			 previous = previous->pnext;
+
 		 }
-		 else if (position == 0)
-		 {
-			 current = temp;
-			 this->head = current->pnext;
-			 delete temp;
-			 this->size--;
-		 }
+		 List <T> *toDelete = previous->pnext;
+		 previous->pnext = toDelete->pnext;
+		 delete toDelete;
+		 this->size--;
 	 }
  }
 

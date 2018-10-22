@@ -8,6 +8,7 @@ template <typename T>
 void Sort(T* arr, int left, int right)
 {
 	T help = T();
+	T min = T();
 	T* hArr = new T[right];
 	int mid = (left + right) / 2;
 
@@ -25,7 +26,21 @@ void Sort(T* arr, int left, int right)
 	Sort(arr, left, mid);
 	Sort(arr, mid + 1, right);
 
-	for (int i = left; i <= right; i++)
+	min = arr[left];
+	for (int i = left; i <right ; i++)
+	{
+		for (int j = left; i < right-1; j++)
+		{
+			if (arr[j] > arr[j + 1])
+			{
+				help = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = help;
+			}
+		}
+	}
+
+	/*for (int i = left; i <= right; i++)
 	{
 		hArr[i] = arr[i];
 	}
@@ -49,7 +64,7 @@ void Sort(T* arr, int left, int right)
 			arr[k] = hArr[i];
 			i++;
 		}
-	}
+	}*/
 
 	/*int begin = left, end = mid + 1;
 	for (int j = left; j <= right; j++)

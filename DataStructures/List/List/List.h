@@ -11,6 +11,7 @@ private:
 	int size = 0;
 
 	List(T data);
+	void pop_front();//delete head
 public:
 		List();
 		void AddFirst(T data);
@@ -21,7 +22,6 @@ public:
 		T operator[](int position);
 
 		int getSize();
-
 };
 
 

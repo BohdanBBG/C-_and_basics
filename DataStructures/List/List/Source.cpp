@@ -22,7 +22,7 @@ int main()
 	//Lst.DeleteAll();
 	cout << Lst.getSize() << endl;
 
-	Lst.DeleteInPosition(4);
+	Lst.DeleteInPosition(7);
 
 	cout << Lst.getSize() << endl;
 
