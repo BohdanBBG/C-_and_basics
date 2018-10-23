@@ -5,81 +5,58 @@
 
 
 template <typename T>
-void Sort(T* arr, int left, int right)
+void Sort(T* arr, int left, int right, int  SIZE)
 {
-	T help = T();
-	T min = T();
-	T* hArr = new T[right];
-	int mid = (left + right) / 2;
+	int SIZES = SIZE;
 
-	if (left >= right) { return; }
-
-	if (( right - left ) == 2 )
+	if (right == left)
 	{
-		help = arr[left];
-		arr[left] = arr[left+1];
-		arr[left+1] = help;
-		return ;
+		return;
 	}
-
-
-	Sort(arr, left, mid);
-	Sort(arr, mid + 1, right);
-
-	min = arr[left];
-	for (int i = left; i <right ; i++)
+	if (right - left == 1)
 	{
-		for (int j = left; i < right-1; j++)
+		if (arr[right] < arr[left])
 		{
-			if (arr[j] > arr[j + 1])
-			{
-				help = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = help;
-			}
+			T save = arr[left];
+			arr[left] = arr[right];
+			arr[right] = save;
 		}
+		return;
 	}
+	int middle = (right + left) / 2;
 
-	/*for (int i = left; i <= right; i++)
+	Sort(arr, left, middle, SIZES);
+	Sort(arr, middle + 1, right, SIZES);
+
+	T* buf = new T[SIZES];
+	int xleft = left;
+	int xright = middle + 1;
+	int current = 0;
+	while (right - left + 1 != current)
 	{
-		hArr[i] = arr[i];
-	}
-
-	int i = left, j = mid + 1;
-	for (int k = left; k <= right; k++) {
-
-		if (i > mid) {
-			arr[k] = hArr[j];
-			j++;
-		}
-		else if (j > right) {
-			arr[k] = hArr[i];
-			i++;
-		}
-		else if (hArr[j] < hArr[i]) {
-			arr[k] = hArr[j];
-			j++;
-		}
-		else {
-			arr[k] = hArr[i];
-			i++;
-		}
-	}*/
-
-	/*int begin = left, end = mid + 1;
-	for (int j = left; j <= right; j++)
-	{
-		if ((begin <= mid) && ((end > right) || (arr[begin] < arr[end])))
+		if (xleft > middle)
 		{
-			arr[j] = hArr[begin];
-			begin++;
+			buf[current++] = arr[xright++];
+		}
+		else if (xright > right)
+		{
+			buf[current++] = arr[xleft++];
+		}
+		else if (arr[xleft] > arr[xright])
+		{
+			buf[current++] = arr[xright++];
 		}
 		else
 		{
-			arr[j] = hArr[end];
-			end++;
+			buf[current++] = arr[xleft++];
 		}
-	}*/
+
+	}
+	for (int i = 0; i < current; i++)
+	{
+		arr[i + left] = buf[i];
+	}
+	delete[] buf;
 }
 
 
